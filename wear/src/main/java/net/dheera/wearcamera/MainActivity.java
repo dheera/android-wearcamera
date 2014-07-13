@@ -3,6 +3,8 @@ package net.dheera.wearcamera;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
@@ -34,7 +36,9 @@ public class MainActivity extends Activity {
     private ImageView imageView;
     private TextView textViewCountDown;
 
-    private boolean previewRunning = true;
+    private boolean mPreviewRunning = true;
+
+    int selfTimerSeconds;
 
     void findPhoneNode() {
         PendingResult<NodeApi.GetConnectedNodesResult> pending = Wearable.NodeApi.getConnectedNodes(mGoogleApiClient);
@@ -55,8 +59,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        previewRunning = false;
-        if(mPhoneNode != null && previewRunning) {
+        mPreviewRunning = false;
+        if(mPhoneNode != null && mPreviewRunning) {
             sendToPhone("/stop", null, new ResultCallback<MessageApi.SendMessageResult>() {
                 @Override
                 public void onResult(MessageApi.SendMessageResult result) {
@@ -72,7 +76,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-        previewRunning = false;
+        mPreviewRunning = false;
         if(mPhoneNode != null) {
             sendToPhone("/stop", null, new ResultCallback<MessageApi.SendMessageResult>() {
                 @Override
@@ -133,10 +137,10 @@ public class MainActivity extends Activity {
                             @Override
                             public void onMessageReceived (MessageEvent m){
                                 if (m.getPath().equals("/stop")) {
-                                    previewRunning = false;
+                                    mPreviewRunning = false;
                                     moveTaskToBack(true);
                                 } else if (m.getPath().equals("/start")) {
-                                    previewRunning = true;
+                                    mPreviewRunning = true;
                                 } else if (mPhoneNode!=null && m.getPath().equals("/show")) {
                                     sendToPhone("/received", null, null);
                                     byte[] data = m.getData();
@@ -168,7 +172,13 @@ public class MainActivity extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    imageView.setImageBitmap(bmp);
+                    if(imageView != null) {
+                        BitmapDrawable drawable = ((BitmapDrawable) imageView.getDrawable());
+                        if (drawable instanceof BitmapDrawable) {
+                            drawable.getBitmap().recycle();
+                        }
+                        imageView.setImageBitmap(bmp);
+                    }
                 }
             });
     }
@@ -183,20 +193,19 @@ public class MainActivity extends Activity {
         });
     }
 
-    int selfTimer;
 
     public void imageView_onLongClick(final View view) {
         textViewCountDown.setVisibility(View.VISIBLE);
         Timer mTimer = new Timer();
-        selfTimer = 6;
+        selfTimerSeconds = 6;
         mTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if(selfTimer-->0) {
+                if(selfTimerSeconds-->0) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            textViewCountDown.setText(String.valueOf(selfTimer));
+                            textViewCountDown.setText(String.valueOf(selfTimerSeconds));
                         }
                     });
                 } else {
