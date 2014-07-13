@@ -10,7 +10,19 @@
         android:layout_height="match_parent"
         android:id="@+id/imageView"
         android:layout_gravity="center"
-        android:onClick="buttonSnap_onClick"
-        android:scaleType="fitCenter" />
+        android:onClick="imageView_onClick"
+        android:scaleType="fitCenter"
+        android:longClickable="true"
+        android:clickable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="2"
+        android:id="@+id/textViewCountDown"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:textSize="@android:dimen/notification_large_icon_height" />
 
 </FrameLayout>

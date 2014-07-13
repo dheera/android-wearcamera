@@ -49,7 +49,7 @@ public class DataLayerListenerService extends WearableListenerService {
         if(D) Log.d(TAG, "onMessageReceived: " + m.getPath());
         if(m.getPath().equals("/start")) {
             Intent startIntent = new Intent(this, MainActivity.class);
-            startIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(startIntent);
         }
     }

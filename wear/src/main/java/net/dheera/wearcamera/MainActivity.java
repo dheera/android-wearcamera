@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,55 +26,29 @@ import com.google.android.gms.wearable.Wearable;
 import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
 import java.util.Timer;
+import java.util.TimerTask;
 import java.util.zip.Inflater;
 
 public class MainActivity extends Activity {
 
     private static final String TAG = "WearCamera";
 
-    private Timer myTimer;
-    private TextView mTextView;
-    GoogleApiClient mGoogleApiClient = null;
+    private GoogleApiClient mGoogleApiClient = null;
     private Node mPhoneNode = null;
-    private boolean connected = false;
-    ImageView imageView;
-    // ImageView imageView = (ImageView) View.inflate(this, R.id.imageView, null);
+    private ImageView imageView;
+    private TextView textViewCountDown;
 
     private boolean previewRunning = true;
 
-    Handler mHandler = new Handler();
-    Thread timer = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    Thread.sleep(10000);
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(mPhoneNode!=null) { sendAndForget("/request", null); }
-                        }
-                    });
-                } catch (Exception e) {
-                }
-            }
-        }
-    });
-
-
-    void findWearableNode() {
-        Log.d(TAG,"foo");
+    void findPhoneNode() {
         PendingResult<NodeApi.GetConnectedNodesResult> pending = Wearable.NodeApi.getConnectedNodes(mGoogleApiClient);
         pending.setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
             @Override
             public void onResult(NodeApi.GetConnectedNodesResult result) {
-                Log.d(TAG,"foo2");
-                if(result.getNodes().size()>0) {Log.d(TAG,"foo3");
+                if(result.getNodes().size()>0) {
                     mPhoneNode = result.getNodes().get(0);
                     Log.d(TAG, "Found wearable: name=" + mPhoneNode.getDisplayName() + ", id=" + mPhoneNode.getId());
-                    sendAndForget("/start", null);
-                    sendAndForget("/request", null);
-                    //timer.start();
+                    sendToPhone("/start", null, null);
                 } else {
                     mPhoneNode = null;
                 }
@@ -85,41 +60,51 @@ public class MainActivity extends Activity {
     protected void onPause() {
         super.onPause();
         previewRunning = false;
-        PendingResult<MessageApi.SendMessageResult> pending = Wearable.MessageApi.sendMessage(mGoogleApiClient, mPhoneNode.getId(), "/stop", null);
-        pending.setResultCallback(new ResultCallback<MessageApi.SendMessageResult>() {
-            @Override
-            public void onResult(MessageApi.SendMessageResult result) {
-                if (!result.getStatus().isSuccess()) { Log.e(TAG, "ERROR: failed to send Message: " + result.getStatus()); }
-                finish();
-            }
-        });
+        if(mPhoneNode != null && previewRunning) {
+            sendToPhone("/stop", null, new ResultCallback<MessageApi.SendMessageResult>() {
+                @Override
+                public void onResult(MessageApi.SendMessageResult result) {
+                    if (!result.getStatus().isSuccess()) {
+                        Log.e(TAG, "ERROR: failed to send Message: " + result.getStatus());
+                    }
+                    moveTaskToBack(true);
+                }
+            });
+        }
     }
+
     @Override
     protected void onStop() {
         super.onStop();
         previewRunning = false;
-        PendingResult<MessageApi.SendMessageResult> pending = Wearable.MessageApi.sendMessage(mGoogleApiClient, mPhoneNode.getId(), "/stop", null);
-        pending.setResultCallback(new ResultCallback<MessageApi.SendMessageResult>() {
-            @Override
-            public void onResult(MessageApi.SendMessageResult result) {
-                if (!result.getStatus().isSuccess()) { Log.e(TAG, "ERROR: failed to send Message: " + result.getStatus()); }
-                finish();
-            }
-        });
+        if(mPhoneNode != null) {
+            sendToPhone("/stop", null, new ResultCallback<MessageApi.SendMessageResult>() {
+                @Override
+                public void onResult(MessageApi.SendMessageResult result) {
+                    if (!result.getStatus().isSuccess()) {
+                        Log.e(TAG, "ERROR: failed to send Message: " + result.getStatus());
+                    }
+                    moveTaskToBack(true);
+                }
+            });
+        }
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        previewRunning = false;
-        PendingResult<MessageApi.SendMessageResult> pending = Wearable.MessageApi.sendMessage(mGoogleApiClient, mPhoneNode.getId(), "/stop", null);
-        pending.setResultCallback(new ResultCallback<MessageApi.SendMessageResult>() {
-            @Override
-            public void onResult(MessageApi.SendMessageResult result) {
-                if (!result.getStatus().isSuccess()) { Log.e(TAG, "ERROR: failed to send Message: " + result.getStatus()); }
-                finish();
-            }
-        });
+        if(mPhoneNode != null) {
+            sendToPhone("/stop", null, new ResultCallback<MessageApi.SendMessageResult>() {
+                @Override
+                public void onResult(MessageApi.SendMessageResult result) {
+                    if (!result.getStatus().isSuccess()) {
+                        Log.e(TAG, "ERROR: failed to send Message: " + result.getStatus());
+                    }
+                    moveTaskToBack(true);
+                }
+            });
+        }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,23 +113,38 @@ public class MainActivity extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
                 imageView = (ImageView) stub.findViewById(R.id.imageView);
+                textViewCountDown = (TextView) stub.findViewById(R.id.textViewCountDown);
+                imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                   @Override
+                    public boolean onLongClick(View v) {
+                       imageView_onLongClick(v);
+                       return true;
+                    }
+                });
             }
         });
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                     @Override
                     public void onConnected(Bundle connectionHint) {
                         Log.d(TAG, "onConnected: " + connectionHint);
-                        findWearableNode();
+                        findPhoneNode();
                         Wearable.MessageApi.addListener(mGoogleApiClient, new MessageApi.MessageListener() {
                             @Override
-                            public void onMessageReceived (MessageEvent messageEvent){
-                                if (mPhoneNode!=null && previewRunning && messageEvent.getPath().equals("/show")) {
-                                    sendAndForget("/request", null);
-                                    ByteArrayInputStream bais = new ByteArrayInputStream(messageEvent.getData());
-                                    Bitmap bmpSmall = BitmapFactory.decodeStream(bais);
+                            public void onMessageReceived (MessageEvent m){
+                                if (m.getPath().equals("/stop")) {
+                                    previewRunning = false;
+                                    moveTaskToBack(true);
+                                } else if (m.getPath().equals("/start")) {
+                                    previewRunning = true;
+                                } else if (mPhoneNode!=null && m.getPath().equals("/show")) {
+                                    sendToPhone("/received", null, null);
+                                    byte[] data = m.getData();
+                                    Bitmap bmpSmall = BitmapFactory.decodeByteArray(data, 0, data.length);
                                     setBitmap(bmpSmall);
                                 }
 
@@ -176,18 +176,57 @@ public class MainActivity extends Activity {
                 }
             });
     }
-    public void buttonSnap_onClick(View view) {
-        if(mPhoneNode!=null) { sendAndForget("/snap", null); }
+
+    public void imageView_onClick(View view) {
+        if(mPhoneNode!=null) { sendToPhone("/snap", null, null); }
     }
-    private void sendAndForget(String path, byte[] data) {
-        PendingResult<MessageApi.SendMessageResult> pending = Wearable.MessageApi.sendMessage(mGoogleApiClient, mPhoneNode.getId(), path, data);
-        pending.setResultCallback(new ResultCallback<MessageApi.SendMessageResult>() {
+
+    int selfTimer;
+
+    public void imageView_onLongClick(final View view) {
+        textViewCountDown.setVisibility(View.VISIBLE);
+        Timer mTimer = new Timer();
+        selfTimer = 6;
+        mTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
-            public void onResult(MessageApi.SendMessageResult result) {
-                if (!result.getStatus().isSuccess()) {
-                    Log.e(TAG, "ERROR: failed to send Message: " + result.getStatus());
+            public void run() {
+                if(selfTimer-->0) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            textViewCountDown.setText(String.valueOf(selfTimer));
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            textViewCountDown.setVisibility(View.GONE);
+                            imageView_onClick(view);
+                        }
+                    });
+                    this.cancel();
                 }
             }
-        });
+        }, 0, 1000);
+    }
+
+    private void sendToPhone(String path, byte[] data, final ResultCallback<MessageApi.SendMessageResult> callback) {
+        if (mPhoneNode != null) {
+            PendingResult<MessageApi.SendMessageResult> pending = Wearable.MessageApi.sendMessage(mGoogleApiClient, mPhoneNode.getId(), path, data);
+            pending.setResultCallback(new ResultCallback<MessageApi.SendMessageResult>() {
+                @Override
+                public void onResult(MessageApi.SendMessageResult result) {
+                    if (callback != null) {
+                        callback.onResult(result);
+                    }
+                    if (!result.getStatus().isSuccess()) {
+                        Log.d(TAG, "ERROR: failed to send Message: " + result.getStatus());
+                    }
+                }
+            });
+        } else {
+            Log.d(TAG, "ERROR: tried to send message before device was found");
+        }
     }
 }
