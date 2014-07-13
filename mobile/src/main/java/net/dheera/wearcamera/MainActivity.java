@@ -251,6 +251,10 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
             return;
         }
         Camera.Parameters p = mCamera.getParameters();
+        List<String> focusModes = p.getSupportedFocusModes();
+        if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+            p.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+        }
         mCamera.setParameters(p);
         try {
             if (mCamera != null) {
