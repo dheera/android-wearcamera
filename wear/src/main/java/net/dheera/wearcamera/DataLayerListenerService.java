@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 public class DataLayerListenerService extends WearableListenerService {
 
     private static final String TAG = "WearCameraListenerService";
-    private static final boolean D = true;
+    private static final boolean D = false;
 
     @Override
     public void onCreate() {

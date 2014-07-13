@@ -6,11 +6,27 @@
     tools:context=".MainActivity"
     tools:deviceIds="wear_round">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"
+        android:layout_gravity="center"
+        android:onClick="imageView_onClick"
+        android:scaleType="fitCenter"
+        android:longClickable="true"
+        android:clickable="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
+
     <TextView
-        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_round" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="2"
+        android:id="@+id/textView"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:textSize="@android:dimen/notification_large_icon_height"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

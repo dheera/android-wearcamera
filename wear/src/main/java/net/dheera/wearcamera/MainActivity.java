@@ -3,9 +3,7 @@ package net.dheera.wearcamera;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Binder;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.view.View;
@@ -23,15 +21,13 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
-import java.io.ByteArrayInputStream;
-import java.nio.ByteBuffer;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.zip.Inflater;
 
 public class MainActivity extends Activity {
 
     private static final String TAG = "WearCamera";
+    private static final boolean D = false;
 
     private GoogleApiClient mGoogleApiClient = null;
     private Node mPhoneNode = null;
@@ -47,7 +43,7 @@ public class MainActivity extends Activity {
             public void onResult(NodeApi.GetConnectedNodesResult result) {
                 if(result.getNodes().size()>0) {
                     mPhoneNode = result.getNodes().get(0);
-                    Log.d(TAG, "Found wearable: name=" + mPhoneNode.getDisplayName() + ", id=" + mPhoneNode.getId());
+                    if(D) Log.d(TAG, "Found wearable: name=" + mPhoneNode.getDisplayName() + ", id=" + mPhoneNode.getId());
                     sendToPhone("/start", null, null);
                 } else {
                     mPhoneNode = null;
@@ -179,6 +175,12 @@ public class MainActivity extends Activity {
 
     public void imageView_onClick(View view) {
         if(mPhoneNode!=null) { sendToPhone("/snap", null, null); }
+        imageView.animate().setDuration(500).translationX(imageView.getWidth()).rotation(40).withEndAction(new Runnable() {
+            public void run() {
+                imageView.setX(0);
+                imageView.setRotation(0);
+            }
+        });
     }
 
     int selfTimer;
@@ -221,12 +223,12 @@ public class MainActivity extends Activity {
                         callback.onResult(result);
                     }
                     if (!result.getStatus().isSuccess()) {
-                        Log.d(TAG, "ERROR: failed to send Message: " + result.getStatus());
+                        if(D) Log.d(TAG, "ERROR: failed to send Message: " + result.getStatus());
                     }
                 }
             });
         } else {
-            Log.d(TAG, "ERROR: tried to send message before device was found");
+            if(D) Log.d(TAG, "ERROR: tried to send message before device was found");
         }
     }
 }
