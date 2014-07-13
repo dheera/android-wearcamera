@@ -65,14 +65,6 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
     private String mWearableAddress = null;
     public boolean readyToProcessImage = true;
 
-    public static final int MESSAGE_STATE_CHANGE = 1;
-    public static final int MESSAGE_READ = 2;
-    public static final int MESSAGE_WRITE = 3;
-    public static final int MESSAGE_DEVICE_NAME = 4;
-    public static final String DEVICE_NAME = "device_name";
-    private static final int REQUEST_CONNECT_DEVICE = 1;
-    private static final int REQUEST_ENABLE_BT = 2;
-
     void findWearableNode() {
         PendingResult<NodeApi.GetConnectedNodesResult> nodes = Wearable.NodeApi.getConnectedNodes(mGoogleApiClient);
         nodes.setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
@@ -175,6 +167,9 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
             }
             int result = (info.orientation - degrees + 360) % 360;
             mCamera.setDisplayOrientation(result);
+            Camera.Parameters params = mCamera.getParameters();
+            params.setRotation(result);
+            mCamera.setParameters(params);
             mCameraOrientation = result;
     }
 
