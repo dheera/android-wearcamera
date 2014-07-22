@@ -1,6 +1,7 @@
 package net.dheera.wearcamera;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +22,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -107,7 +111,7 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                                 if(m.getPath().equals("/snap")) {
                                     doSnap();
                                 } else if(m.getPath().equals("/received")) {
-                                    if(displayFrameLag>1) displayFrameLag--;
+                                    // if(displayFrameLag>1) displayFrameLag--;
                                 } else if(m.getPath().equals("/stop")) {
                                     moveTaskToBack(true);
                                 }
@@ -205,6 +209,19 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                             mImageView.setVisibility(View.GONE);
                         }
                     });
+                    int smallWidth, smallHeight;
+                    int dimension = 280;
+                    if(bmp.getWidth() > bmp.getHeight()) {
+                        smallWidth = dimension;
+                        smallHeight = dimension*bmp.getHeight()/bmp.getWidth();
+                    } else {
+                        smallHeight = dimension;
+                        smallWidth = dimension*bmp.getWidth()/bmp.getHeight();
+                    }
+                    Bitmap bmpSmall = Bitmap.createScaledBitmap(bmp, smallWidth, smallHeight, false);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bmpSmall.compress(Bitmap.CompressFormat.WEBP, 50, baos);
+                    sendToWearable("/result", baos.toByteArray(), null);
                     mCamera.startPreview();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -242,6 +259,12 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
     }
 
     @Override
+    public synchronized void onResume() {
+        Log.d(TAG, "onResume");
+        super.onResume();
+    }
+
+    @Override
     public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
 
         if (mPreviewRunning) {
@@ -270,10 +293,10 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                             int[] rgb = decodeYUV420SP(data, previewSize.width, previewSize.height);
                             Bitmap bmp = Bitmap.createBitmap(rgb, previewSize.width, previewSize.height, Bitmap.Config.ARGB_8888);
                             int smallWidth, smallHeight;
-                            int dimension = 280;
+                            int dimension = 200;
                             if(displayFrameLag > 3) {
                                 // stream is lagging, cut resolution and catch up
-                                dimension = 140;
+                                dimension = 100;
                             }
                             if(previewSize.width > previewSize.height) {
                                 smallWidth = dimension;
@@ -290,8 +313,13 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                             Bitmap bmpSmallRotated = Bitmap.createBitmap(bmpSmall, 0, 0, smallWidth, smallHeight, matrix, false);
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
                             bmpSmallRotated.compress(Bitmap.CompressFormat.WEBP, 30, baos);
-                            sendToWearable("/show", baos.toByteArray(), null);
                             displayFrameLag++;
+                            sendToWearable("/show", baos.toByteArray(), new ResultCallback<MessageApi.SendMessageResult>() {
+                                @Override
+                                public void onResult(MessageApi.SendMessageResult result) {
+                                    displayFrameLag--;
+                                }
+                            });
                             bmp.recycle();
                             bmpSmall.recycle();
                             bmpSmallRotated.recycle();

@@ -29,11 +29,18 @@ import java.util.TimerTask;
 public class MainActivity extends Activity {
 
     private static final String TAG = "WearCamera";
-    private static final boolean D = false;
+    private static final boolean D = true;
+
+
+
+    // Intent request codes
+    private static final int REQUEST_CONNECT_DEVICE = 1;
+    private static final int REQUEST_ENABLE_BT = 2;
 
     private GoogleApiClient mGoogleApiClient = null;
     private Node mPhoneNode = null;
-    private ImageView imageView;
+    private ImageView mImageView;
+    private ImageView mImageView2;
     private TextView textViewCountDown;
 
     private boolean mPreviewRunning = true;
@@ -113,12 +120,13 @@ public class MainActivity extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                imageView = (ImageView) stub.findViewById(R.id.imageView);
+                mImageView = (ImageView) stub.findViewById(R.id.imageView);
+                mImageView2 = (ImageView) stub.findViewById(R.id.imageView2);
                 textViewCountDown = (TextView) stub.findViewById(R.id.textViewCountDown);
-                imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                mImageView.setOnLongClickListener(new View.OnLongClickListener() {
                    @Override
                     public boolean onLongClick(View v) {
-                       imageView_onLongClick(v);
+                       mImageView_onLongClick(v);
                        return true;
                     }
                 });
@@ -142,10 +150,13 @@ public class MainActivity extends Activity {
                                 } else if (m.getPath().equals("/start")) {
                                     mPreviewRunning = true;
                                 } else if (mPhoneNode!=null && m.getPath().equals("/show")) {
-                                    sendToPhone("/received", null, null);
+                                    // sendToPhone("/received", null, null);
                                     byte[] data = m.getData();
                                     Bitmap bmpSmall = BitmapFactory.decodeByteArray(data, 0, data.length);
                                     setBitmap(bmpSmall);
+                                } else if(m.getPath().equals("/result")) {
+                                    if(D) Log.d(TAG, "result");
+                                    onMessageResult(m.getData());
                                 }
 
                             }
@@ -172,29 +183,29 @@ public class MainActivity extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(imageView != null) {
-                        BitmapDrawable drawable = ((BitmapDrawable) imageView.getDrawable());
+                    if(mImageView != null) {
+                        BitmapDrawable drawable = ((BitmapDrawable) mImageView.getDrawable());
                         if (drawable instanceof BitmapDrawable) {
                             drawable.getBitmap().recycle();
                         }
-                        imageView.setImageBitmap(bmp);
+                        mImageView.setImageBitmap(bmp);
                     }
                 }
             });
     }
 
-    public void imageView_onClick(View view) {
+    public void mImageView_onClick(View view) {
         if(mPhoneNode!=null) { sendToPhone("/snap", null, null); }
-        imageView.animate().setDuration(500).translationX(imageView.getWidth()).rotation(40).withEndAction(new Runnable() {
+        /*mImageView.animate().setDuration(500).translationX(mImageView.getWidth()).rotation(40).withEndAction(new Runnable() {
             public void run() {
-                imageView.setX(0);
-                imageView.setRotation(0);
+                mImageView.setX(0);
+                mImageView.setRotation(0);
             }
-        });
+        });*/
     }
 
 
-    public void imageView_onLongClick(final View view) {
+    public void mImageView_onLongClick(final View view) {
         textViewCountDown.setVisibility(View.VISIBLE);
         Timer mTimer = new Timer();
         selfTimerSeconds = 6;
@@ -213,7 +224,7 @@ public class MainActivity extends Activity {
                         @Override
                         public void run() {
                             textViewCountDown.setVisibility(View.GONE);
-                            imageView_onClick(view);
+                            mImageView_onClick(view);
                         }
                     });
                     this.cancel();
@@ -239,5 +250,23 @@ public class MainActivity extends Activity {
         } else {
             if(D) Log.d(TAG, "ERROR: tried to send message before device was found");
         }
+    }
+    
+    private void onMessageResult(final byte[] data) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                mImageView2.setImageBitmap(bmp);
+                mImageView2.setX(0);
+                mImageView2.setRotation(0);
+                mImageView2.setVisibility(View.VISIBLE);
+                mImageView2.animate().setDuration(500).translationX(mImageView2.getWidth()).rotation(40).withEndAction(new Runnable() {
+                    public void run() {
+                        mImageView2.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
     }
 }

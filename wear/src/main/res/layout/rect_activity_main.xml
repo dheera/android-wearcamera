@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:id="@+id/imageView"
         android:layout_gravity="center"
-        android:onClick="imageView_onClick"
+        android:onClick="mImageView_onClick"
         android:scaleType="fitCenter"
         android:longClickable="true"
         android:clickable="true" />
@@ -24,5 +24,16 @@
         android:layout_gravity="center"
         android:visibility="gone"
         android:textSize="@android:dimen/notification_large_icon_height" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView2"
+        android:layout_gravity="right|center_vertical"
+        android:onClick="imageView_onClick"
+        android:scaleType="fitCenter"
+        android:longClickable="true"
+        android:clickable="true"
+        android:visibility="gone" />
 
 </FrameLayout>
