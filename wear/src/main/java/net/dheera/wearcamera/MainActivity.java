@@ -39,11 +39,10 @@ public class MainActivity extends Activity {
     private GoogleApiClient mGoogleApiClient = null;
     private Node mPhoneNode = null;
 
-    private FrameLayout mOverlay;
     private MenuAdapter mMenuAdapter;
 
     GridViewPager mGridViewPager;
-    private ImageView mImageView_tip;
+
     private boolean mPreviewRunning = true;
 
     private int currentTimer = 0;
