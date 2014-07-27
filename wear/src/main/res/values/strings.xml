@@ -2,5 +2,13 @@
 <resources>
 
     <string name="app_name">Camera</string>
+    <string name="action_switch_0">Rear camera</string>
+    <string name="action_switch_1">Front camera</string>
+    <string name="action_flash_0">Flash off</string>
+    <string name="action_flash_1">Flash auto</string>
+    <string name="action_flash_2">Flash on</string>
+    <string name="action_timer_0">Self-timer off</string>
+    <string name="action_timer_1">Self-timer 5s</string>
+    <string name="action_timer_2">Self-timer 10s</string>
 
 </resources>

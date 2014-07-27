@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="icons.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.90590746"
+     inkscape:cx="227.73491"
+     inkscape:cy="525.26446"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g4259">
+      <path
+         inkscape:export-ydpi="159.39"
+         inkscape:export-xdpi="159.39"
+         inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_switch_1.png"
+         transform="matrix(1.3825891,0,0,1.3825891,-309.49304,-436.83621)"
+         d="m 440.42652,438.69452 a 104.55079,104.55079 0 1 1 -209.10158,0 104.55079,104.55079 0 1 1 209.10158,0 z"
+         sodipodi:ry="104.55079"
+         sodipodi:rx="104.55079"
+         sodipodi:cy="438.69452"
+         sodipodi:cx="335.87573"
+         id="path4234"
+         style="fill:#4d4d4d;stroke:none;opacity:1"
+         sodipodi:type="arc" />
+      <path
+         transform="matrix(-1.540235,0.8513249,-0.8513249,-1.540235,1200.0212,148.41007)"
+         sodipodi:end="0.87058055"
+         sodipodi:start="0"
+         d="m 562.14988,293.48508 a 70.458138,70.458138 0 0 1 -25.05613,53.87956 l -45.40201,-53.87956 z"
+         sodipodi:ry="70.458138"
+         sodipodi:rx="70.458138"
+         sodipodi:cy="293.48508"
+         sodipodi:cx="491.69174"
+         id="path3302-5"
+         style="fill:#ffffff;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3145-3"
+         d="m 205.7277,91.464484 c -0.42712,-0.005 -0.88963,0.0619 -1.46875,0.1875 -3.0006,0.649 -9.84341,3.72299 -28.8125,12.562496 l 27.25,10.4375 -52.84375,29.21875 c 1.89105,14.49358 7.29804,57.10244 11.09375,87.71875 2.93201,23.64293 2.91996,23.51962 5.71875,28.0625 1.80287,2.92846 5.00255,5.44737 7.40625,5.71875 2.8738,0.33275 52.64923,-2.84148 54.96875,-3.5 1.17346,-0.33369 2.86733,-1.14952 3.78125,-1.8125 3.49648,-2.51125 5.4817,-6.92678 5.4375,-12.125 -0.0193,-2.11291 -0.87932,-8.41619 -3.125,-22.875 -1.70324,-10.98353 -6.43045,-41.63929 -10.5,-68.09375 -4.0672,-26.4572 -7.73231,-50.03188 -8.15625,-52.375 -1.49609,-8.281366 -4.39553,-12.231326 -9.53125,-12.999996 -0.40773,-0.0621 -0.79163,-0.12023 -1.21875,-0.125 z m -1.8125,32.531246 c 0.55783,-0.009 1.0073,0.0609 1.46875,0.1875 2.18292,0.58958 4.03599,2.35375 5.15625,4.84375 0.78714,1.76028 1.27183,4.47106 5.78125,34.59375 2.69683,17.98213 5.56732,37.03504 6.375,42.375 1.58536,10.52047 1.60355,12.17624 0.4375,15.71875 -0.99685,3.03653 -3.40342,5.44956 -6.21875,6.25 -0.85567,0.24395 -9.99728,1.67338 -20.3125,3.15625 -10.31976,1.47643 -19.36552,2.6626 -20.09375,2.625 -3.71896,-0.1846 -7.15635,-2.51433 -8.65625,-5.875 -0.77359,-1.73884 -1.051,-3.58306 -3.75,-24.46875 -1.60498,-12.42791 -3.84603,-29.75473 -5,-38.5 -2.04949,-15.49685 -2.09995,-15.9304 -1.65625,-18.1875 0.49855,-2.5725 1.80051,-5.1503 3.5625,-6.9375 1.05263,-1.07051 2.9703,-1.85153 18.9375,-7.8125 13.14089,-4.90738 18.82241,-6.95519 21.84375,-7.65625 0.90986,-0.21126 1.56717,-0.30306 2.125,-0.3125 z"
+         style="fill:#ffffff" />
+    </g>
+    <g
+       id="g4254"
+       transform="translate(-37.142857,2.8571429)">
+      <path
+         inkscape:export-ydpi="159.39"
+         inkscape:export-xdpi="159.39"
+         inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_switch_0.png"
+         transform="matrix(1.3825891,0,0,1.3825891,64.907591,-443.45779)"
+         d="m 440.42652,438.69452 c 0,57.74181 -46.80898,104.55079 -104.55079,104.55079 -57.7418,0 -104.55079,-46.80898 -104.55079,-104.55079 0,-57.74181 46.80899,-104.55079 104.55079,-104.55079 57.74181,0 104.55079,46.80898 104.55079,104.55079 z"
+         sodipodi:ry="104.55079"
+         sodipodi:rx="104.55079"
+         sodipodi:cy="438.69452"
+         sodipodi:cx="335.87573"
+         id="path4234-5"
+         style="fill:#4d4d4d;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3302"
+         d="m 602.06699,87.875194 -61.15625,39.937496 7.375,46.09375 66.4375,24.25 c 13.39087,-36.69997 8.69774,-77.56718 -12.65625,-110.281246 z"
+         style="fill:#ffffff" />
+      <path
+         id="path3145"
+         d="m 472.5624,218.34141 c -3.98537,-32.14608 -9.95391,-79.36911 -11.53643,-91.34628 -1.56859,-11.8657 -1.61931,-14.07063 -0.32449,-18.10388 0.92364,-2.86977 3.40887,-6.39884 5.4413,-7.79964 0.83231,-0.57079 6.16122,-3.22721 11.83614,-5.87701 26.91703,-12.567206 34.42998,-16.059536 37.90077,-16.810236 1.15825,-0.25129 1.87987,-0.16862 2.69532,-0.0445 5.13572,0.76867 8.02508,4.71321 9.52117,12.994576 0.42394,2.34312 4.11008,25.925 8.17728,52.3822 4.06955,26.45446 8.78845,57.09757 10.49169,68.0811 2.24568,14.45881 3.10127,20.75745 3.12057,22.87036 0.0442,5.19822 -1.93638,9.60494 -5.43286,12.11619 -0.91392,0.66298 -2.60935,1.48674 -3.78281,1.82043 -2.31952,0.65852 -52.08733,3.82856 -54.96113,3.49581 -2.4037,-0.27138 -5.62466,-2.76775 -7.42753,-5.69621 -2.79879,-4.54288 -2.78698,-4.43993 -5.71899,-28.08286 z m 6.92097,-3.70618 c 1.4999,3.36067 4.93458,5.69448 8.65354,5.87908 0.72823,0.0376 9.76431,-1.15886 20.08407,-2.63529 10.31522,-1.48287 19.48163,-2.90706 20.3373,-3.15101 2.81533,-0.80044 5.21776,-3.20165 6.21461,-6.23818 1.16605,-3.54251 1.12855,-5.20963 -0.45681,-15.7301 -0.80768,-5.33996 -3.67219,-24.39329 -6.36902,-42.37542 -4.50942,-30.12269 -4.97718,-32.83037 -5.76432,-34.59065 -1.12026,-2.49 -2.98097,-4.26249 -5.16389,-4.85207 -0.9229,-0.25324 -1.78291,-0.30013 -3.60264,0.12239 -3.02134,0.70106 -8.69831,2.75551 -21.8392,7.66289 -15.9672,5.96097 -17.8808,6.75011 -18.93343,7.82062 -1.76199,1.7872 -3.05702,4.3625 -3.55557,6.935 -0.4437,2.2571 -0.41125,2.68136 1.63824,18.17821 1.15397,8.74527 3.39525,26.08708 5.00023,38.51499 2.699,20.88569 2.9833,22.7207 3.75689,24.45954 z"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff" />
+    </g>
+    <g
+       id="g4254-1"
+       transform="translate(-366.32704,354.65336)"
+       style="opacity:1"
+       inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_flash_0.png"
+       inkscape:export-xdpi="159.39"
+       inkscape:export-ydpi="159.39">
+      <path
+         inkscape:export-ydpi="159.39"
+         inkscape:export-xdpi="159.39"
+         inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_switch_0.png"
+         transform="matrix(1.3825891,0,0,1.3825891,64.907591,-443.45779)"
+         d="m 440.42652,438.69452 c 0,57.74181 -46.80898,104.55079 -104.55079,104.55079 -57.7418,0 -104.55079,-46.80898 -104.55079,-104.55079 0,-57.74181 46.80899,-104.55079 104.55079,-104.55079 57.74181,0 104.55079,46.80898 104.55079,104.55079 z"
+         sodipodi:ry="104.55079"
+         sodipodi:rx="104.55079"
+         sodipodi:cy="438.69452"
+         sodipodi:cx="335.87573"
+         id="path4234-5-3"
+         style="fill:#4d4d4d;stroke:none"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g4428"
+       transform="matrix(0.41964286,0,0,0.41964286,55.530105,410.28028)"
+       style="fill:#ffffff">
+      <path
+         id="path4430"
+         d="m 147.4,451.9 c 0.4,0.2 0.7,0.5 1.1,0.7 10.9,6 22.5,10.7 34.4,14.8 1.8,0.6 3.6,1.2 5.4,1.8 21.4,6.8 44,10.9 67.7,10.9 123.7,0 224,-100.3 224,-224 C 480,171.8 433.4,98.4 364.5,60.2 364.1,60 363.8,59.8 363.5,59.6 352.6,53.6 341,48.9 329.1,44.8 327.3,44.2 325.5,43.6 323.7,43 302.3,36.1 279.6,32 256,32 132.3,32 32,132.3 32,256 c 0,84.3 46.6,157.6 115.4,195.9 z m -29.2,-295.3 54.4,54.4 36.3,-40.5 -52.4,-52.4 c 28,-20.2 62.1,-32.6 99.4,-32.6 9.3,0 18.3,0.9 27.2,2.4 9.8,1.6 19.3,4.1 28.5,7.3 1.8,0.6 3.7,1.2 5.6,1.9 6.2,2.4 12.2,5 18,8.1 54.2,28.5 91.2,85.3 91.2,150.8 0,37.2 -12.4,71.3 -32.7,99.4 L 339.3,301 303,341.4 l 52.4,52.4 c -28,20.3 -62.2,32.7 -99.4,32.7 -9.3,0 -18.4,-0.9 -27.2,-2.4 -9.8,-1.6 -19.3,-4.1 -28.5,-7.3 -1.9,-0.6 -3.8,-1.2 -5.6,-1.9 -6.5,-2.5 -12.9,-5.3 -19,-8.6 C 122.1,377.6 85.6,321.1 85.6,256 c 0,-37.2 12.4,-71.3 32.6,-99.4 z"
+         inkscape:connector-curvature="0"
+         style="fill:#ffffff" />
+      <polygon
+         id="polygon4432"
+         points="163.1,277 248.4,277 209.7,389.8 348.9,235 263.6,235 302.2,122.2 "
+         style="fill:#ffffff" />
+    </g>
+    <g
+       id="g4254-1-9"
+       transform="translate(-29.26021,364.00639)"
+       style="opacity:1"
+       inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_flash_1.png"
+       inkscape:export-xdpi="159.39"
+       inkscape:export-ydpi="159.39">
+      <path
+         inkscape:export-ydpi="159.39"
+         inkscape:export-xdpi="159.39"
+         inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_switch_0.png"
+         transform="matrix(1.3825891,0,0,1.3825891,64.907591,-443.45779)"
+         d="m 440.42652,438.69452 c 0,57.74181 -46.80898,104.55079 -104.55079,104.55079 -57.7418,0 -104.55079,-46.80898 -104.55079,-104.55079 0,-57.74181 46.80899,-104.55079 104.55079,-104.55079 57.74181,0 104.55079,46.80898 104.55079,104.55079 z"
+         sodipodi:ry="104.55079"
+         sodipodi:rx="104.55079"
+         sodipodi:cy="438.69452"
+         sodipodi:cx="335.87573"
+         id="path4234-5-3-6"
+         style="fill:#4d4d4d;stroke:none"
+         sodipodi:type="arc" />
+    </g>
+    <polygon
+       transform="matrix(0.70779185,0,0,0.70779185,318.8308,345.88815)"
+       style="fill:#ffffff"
+       points="163.1,277 248.4,277 209.7,389.8 348.9,235 263.6,235 302.2,122.2 "
+       id="polygon4432-1" />
+    <g
+       style="fill:#ffffff;opacity:1"
+       transform="translate(329.28573,367.85714)"
+       id="g4254-1-9-7"
+       inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_flash_2.png"
+       inkscape:export-xdpi="159.39"
+       inkscape:export-ydpi="159.39">
+      <path
+         sodipodi:type="arc"
+         style="fill:#4d4d4d;stroke:none"
+         id="path4234-5-3-6-1"
+         sodipodi:cx="335.87573"
+         sodipodi:cy="438.69452"
+         sodipodi:rx="104.55079"
+         sodipodi:ry="104.55079"
+         d="m 440.42652,438.69452 c 0,57.74181 -46.80898,104.55079 -104.55079,104.55079 -57.7418,0 -104.55079,-46.80898 -104.55079,-104.55079 0,-57.74181 46.80899,-104.55079 104.55079,-104.55079 57.74181,0 104.55079,46.80898 104.55079,104.55079 z"
+         transform="matrix(1.3825891,0,0,1.3825891,64.907591,-443.45779)"
+         inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_switch_0.png"
+         inkscape:export-xdpi="159.39"
+         inkscape:export-ydpi="159.39" />
+    </g>
+    <polygon
+       transform="matrix(0.70779185,0,0,0.70779185,677.37674,349.73893)"
+       style="fill:#ffffff"
+       points="163.1,277 248.4,277 209.7,389.8 348.9,235 263.6,235 302.2,122.2 "
+       id="polygon4432-1-1" />
+    <flowRoot
+       transform="matrix(1.510813,0,0,1.510813,1282.4651,-65.053983)"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L"
+       id="flowRoot4497"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4499"><rect
+           style="fill:#ffffff"
+           y="408.07648"
+           x="-504.28571"
+           height="161.42857"
+           width="145.71428"
+           id="rect4501" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;font-family:Roboto;-inkscape-font-specification:Roboto Bold"
+         id="flowPara4503">A</flowPara></flowRoot>    <g
+       id="g4254-1-9-8"
+       transform="translate(-27.983953,709.38797)"
+       inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_timer_1.png"
+       inkscape:export-xdpi="159.39"
+       inkscape:export-ydpi="159.39"
+       style="opacity:1">
+      <path
+         inkscape:export-ydpi="159.39"
+         inkscape:export-xdpi="159.39"
+         inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_switch_0.png"
+         transform="matrix(1.3825891,0,0,1.3825891,64.907591,-443.45779)"
+         d="m 440.42652,438.69452 c 0,57.74181 -46.80898,104.55079 -104.55079,104.55079 -57.7418,0 -104.55079,-46.80898 -104.55079,-104.55079 0,-57.74181 46.80899,-104.55079 104.55079,-104.55079 57.74181,0 104.55079,46.80898 104.55079,104.55079 z"
+         sodipodi:ry="104.55079"
+         sodipodi:rx="104.55079"
+         sodipodi:cy="438.69452"
+         sodipodi:cx="335.87573"
+         id="path4234-5-3-6-13"
+         style="fill:#4d4d4d;stroke:none"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g4785"
+       transform="matrix(4.4201134,0,0,4.4201134,330.49943,970.0217)"
+       style="fill:#ffffff">
+      <path
+         id="path4747"
+         d="m 53.633722,-35.082143 3.581419,3.582621 3.0691,-3.072708 c 0,0 -2.036045,-5.081092 -9.209705,-9.2073 l -3.070303,3.070303 3.582621,3.580215 0,0 v 0.0024 l -0.775693,0.776895 c -3.290383,-2.821359 -7.556096,-4.533897 -12.2307,-4.533897 -10.389481,0 -18.809061,8.418377 -18.809061,18.810263 0,10.387076 8.41958,18.8078588 18.809061,18.8078588 10.38948,0 18.80906,-8.4207828 18.80906,-18.8078588 0,-4.67701 -1.714943,-8.942722 -4.532695,-12.2307 l 0.776896,-0.778098 z m -0.864687,13.325089 c -0.0024,0.01443 -0.0036,0.03007 -0.0036,0.04931 h 0.269388 c -0.149126,3.342096 -1.446758,6.473733 -3.701681,8.942723 l -0.16957,-0.16957 c -0.03488,0.03969 -0.06614,0.08178 -0.101021,0.120262 l -2.566402,-2.5652 -0.804557,0.805759 2.72515,2.725149 c -2.473801,2.2549227 -5.599424,3.5537581 -8.946331,3.7040863 v -0.070955 c -0.0902,0.00722 -0.175583,0.016837 -0.268185,0.021647 v -3.8027013 h -1.025839 v 3.852009 c -0.511116,-0.024053 -1.011408,-0.081779 -1.509295,-0.157544 -2.874275,-0.3752191 -5.540495,-1.6163282 -7.705221,-3.593444 l 2.728757,-2.727555 -0.760059,-0.756451 -2.616913,2.616913 c -0.04931,-0.05893 -0.0902,-0.117857 -0.144315,-0.171976 l -0.122668,0.125073 c -2.322269,-2.541147 -3.557366,-5.719686 -3.702883,-8.94633 h 3.853211 v -1.247122 h -3.583823 c 0,-0.01443 0.0024,-0.03247 0.0024,-0.0469 h -0.270591 c 0.145518,-3.227846 1.380614,-6.405182 3.705289,-8.94633 l 0.165962,0.16957 c 0.03728,-0.03969 0.06614,-0.08178 0.102223,-0.122667 l 2.566403,2.572415 0.806962,-0.808164 -2.726352,-2.726352 c 2.470192,-2.257327 5.604234,-3.553758 8.945127,-3.70168 v 0.07095 c 0.08659,-0.0072 0.177989,-0.01924 0.266983,-0.02405 v 3.802701 h 1.02584 v -3.849603 c 0.50871,0.02165 1.01261,0.08178 1.509294,0.157543 2.875478,0.377625 5.539293,1.618734 7.701613,3.593445 l -2.722744,2.722744 0.758857,0.761262 2.612102,-2.616913 c 0.05171,0.05652 0.09381,0.117857 0.14191,0.174381 l 0.127478,-0.126276 c 2.254923,2.471395 3.552556,5.599424 3.701681,8.945127 h -3.854417 v 1.247123 h 3.589837 z"
+         style="fill:#ffffff"
+         inkscape:connector-curvature="0" />
+      <g
+         id="g4749"
+         style="fill:#ffffff" />
+      <g
+         id="g4751"
+         style="fill:#ffffff" />
+      <g
+         id="g4753"
+         style="fill:#ffffff" />
+      <g
+         id="g4755"
+         style="fill:#ffffff" />
+      <g
+         id="g4757"
+         style="fill:#ffffff" />
+      <g
+         id="g4759"
+         style="fill:#ffffff" />
+      <g
+         id="g4761"
+         style="fill:#ffffff" />
+      <g
+         id="g4763"
+         style="fill:#ffffff" />
+      <g
+         id="g4765"
+         style="fill:#ffffff" />
+      <g
+         id="g4767"
+         style="fill:#ffffff" />
+      <g
+         id="g4769"
+         style="fill:#ffffff" />
+      <g
+         id="g4771"
+         style="fill:#ffffff" />
+      <g
+         id="g4773"
+         style="fill:#ffffff" />
+      <g
+         id="g4775"
+         style="fill:#ffffff" />
+      <g
+         id="g4777"
+         style="fill:#ffffff" />
+    </g>
+    <flowRoot
+       transform="matrix(1.510813,0,0,1.510813,1245.6486,217.11175)"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L"
+       id="flowRoot4497-2"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4499-5"><rect
+           style="fill:#ffffff"
+           y="408.07648"
+           x="-504.28571"
+           height="161.42857"
+           width="145.71428"
+           id="rect4501-5" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;font-family:Roboto;-inkscape-font-specification:Roboto Bold"
+         id="flowPara4503-1">5</flowPara></flowRoot>    <g
+       id="g4254-1-9-8-7"
+       transform="translate(349.6883,706.99264)"
+       inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_timer_2.png"
+       inkscape:export-xdpi="159.39"
+       inkscape:export-ydpi="159.39"
+       style="opacity:1">
+      <path
+         inkscape:export-ydpi="159.39"
+         inkscape:export-xdpi="159.39"
+         inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_switch_0.png"
+         transform="matrix(1.3825891,0,0,1.3825891,64.907591,-443.45779)"
+         d="m 440.42652,438.69452 c 0,57.74181 -46.80898,104.55079 -104.55079,104.55079 -57.7418,0 -104.55079,-46.80898 -104.55079,-104.55079 0,-57.74181 46.80899,-104.55079 104.55079,-104.55079 57.74181,0 104.55079,46.80898 104.55079,104.55079 z"
+         sodipodi:ry="104.55079"
+         sodipodi:rx="104.55079"
+         sodipodi:cy="438.69452"
+         sodipodi:cx="335.87573"
+         id="path4234-5-3-6-13-6"
+         style="fill:#4d4d4d;stroke:none"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g4785-5"
+       transform="matrix(4.4201134,0,0,4.4201134,708.17168,967.62639)"
+       style="fill:#ffffff">
+      <path
+         id="path4747-6"
+         d="m 53.633722,-35.082143 3.581419,3.582621 3.0691,-3.072708 c 0,0 -2.036045,-5.081092 -9.209705,-9.2073 l -3.070303,3.070303 3.582621,3.580215 0,0 v 0.0024 l -0.775693,0.776895 c -3.290383,-2.821359 -7.556096,-4.533897 -12.2307,-4.533897 -10.389481,0 -18.809061,8.418377 -18.809061,18.810263 0,10.387076 8.41958,18.8078588 18.809061,18.8078588 10.38948,0 18.80906,-8.4207828 18.80906,-18.8078588 0,-4.67701 -1.714943,-8.942722 -4.532695,-12.2307 l 0.776896,-0.778098 z m -0.864687,13.325089 c -0.0024,0.01443 -0.0036,0.03007 -0.0036,0.04931 h 0.269388 c -0.149126,3.342096 -1.446758,6.473733 -3.701681,8.942723 l -0.16957,-0.16957 c -0.03488,0.03969 -0.06614,0.08178 -0.101021,0.120262 l -2.566402,-2.5652 -0.804557,0.805759 2.72515,2.725149 c -2.473801,2.2549227 -5.599424,3.5537581 -8.946331,3.7040863 v -0.070955 c -0.0902,0.00722 -0.175583,0.016837 -0.268185,0.021647 v -3.8027013 h -1.025839 v 3.852009 c -0.511116,-0.024053 -1.011408,-0.081779 -1.509295,-0.157544 -2.874275,-0.3752191 -5.540495,-1.6163282 -7.705221,-3.593444 l 2.728757,-2.727555 -0.760059,-0.756451 -2.616913,2.616913 c -0.04931,-0.05893 -0.0902,-0.117857 -0.144315,-0.171976 l -0.122668,0.125073 c -2.322269,-2.541147 -3.557366,-5.719686 -3.702883,-8.94633 h 3.853211 v -1.247122 h -3.583823 c 0,-0.01443 0.0024,-0.03247 0.0024,-0.0469 h -0.270591 c 0.145518,-3.227846 1.380614,-6.405182 3.705289,-8.94633 l 0.165962,0.16957 c 0.03728,-0.03969 0.06614,-0.08178 0.102223,-0.122667 l 2.566403,2.572415 0.806962,-0.808164 -2.726352,-2.726352 c 2.470192,-2.257327 5.604234,-3.553758 8.945127,-3.70168 v 0.07095 c 0.08659,-0.0072 0.177989,-0.01924 0.266983,-0.02405 v 3.802701 h 1.02584 v -3.849603 c 0.50871,0.02165 1.01261,0.08178 1.509294,0.157543 2.875478,0.377625 5.539293,1.618734 7.701613,3.593445 l -2.722744,2.722744 0.758857,0.761262 2.612102,-2.616913 c 0.05171,0.05652 0.09381,0.117857 0.14191,0.174381 l 0.127478,-0.126276 c 2.254923,2.471395 3.552556,5.599424 3.701681,8.945127 h -3.854417 v 1.247123 h 3.589837 z"
+         style="fill:#ffffff"
+         inkscape:connector-curvature="0" />
+      <g
+         id="g4749-2"
+         style="fill:#ffffff" />
+      <g
+         id="g4751-9"
+         style="fill:#ffffff" />
+      <g
+         id="g4753-0"
+         style="fill:#ffffff" />
+      <g
+         id="g4755-5"
+         style="fill:#ffffff" />
+      <g
+         id="g4757-8"
+         style="fill:#ffffff" />
+      <g
+         id="g4759-4"
+         style="fill:#ffffff" />
+      <g
+         id="g4761-6"
+         style="fill:#ffffff" />
+      <g
+         id="g4763-3"
+         style="fill:#ffffff" />
+      <g
+         id="g4765-0"
+         style="fill:#ffffff" />
+      <g
+         id="g4767-1"
+         style="fill:#ffffff" />
+      <g
+         id="g4769-3"
+         style="fill:#ffffff" />
+      <g
+         id="g4771-0"
+         style="fill:#ffffff" />
+      <g
+         id="g4773-9"
+         style="fill:#ffffff" />
+      <g
+         id="g4775-4"
+         style="fill:#ffffff" />
+      <g
+         id="g4777-3"
+         style="fill:#ffffff" />
+    </g>
+    <flowRoot
+       transform="matrix(1.510813,0,0,1.510813,1608.5406,215.02625)"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L"
+       id="flowRoot4497-2-9"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4499-5-6"><rect
+           style="fill:#ffffff"
+           y="408.07648"
+           x="-504.28571"
+           height="161.42857"
+           width="145.71428"
+           id="rect4501-5-9" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;letter-spacing:-4.63326693px;fill:#ffffff;font-family:Roboto;-inkscape-font-specification:Roboto Bold"
+         id="flowPara4503-1-3">10</flowPara></flowRoot>    <g
+       id="g4254-1-9-8-0"
+       transform="translate(-349.75904,708.19793)"
+       inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_timer_0.png"
+       inkscape:export-xdpi="159.39"
+       inkscape:export-ydpi="159.39"
+       style="opacity:1">
+      <path
+         inkscape:export-ydpi="159.39"
+         inkscape:export-xdpi="159.39"
+         inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/action_switch_0.png"
+         transform="matrix(1.3825891,0,0,1.3825891,64.907591,-443.45779)"
+         d="m 440.42652,438.69452 c 0,57.74181 -46.80898,104.55079 -104.55079,104.55079 -57.7418,0 -104.55079,-46.80898 -104.55079,-104.55079 0,-57.74181 46.80899,-104.55079 104.55079,-104.55079 57.74181,0 104.55079,46.80898 104.55079,104.55079 z"
+         sodipodi:ry="104.55079"
+         sodipodi:rx="104.55079"
+         sodipodi:cy="438.69452"
+         sodipodi:cx="335.87573"
+         id="path4234-5-3-6-13-60"
+         style="fill:#4d4d4d;stroke:none"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g4785-6"
+       transform="matrix(4.4201134,0,0,4.4201134,8.724349,968.83166)"
+       style="fill:#ffffff">
+      <path
+         id="path4747-0"
+         d="m 53.633722,-35.082143 3.581419,3.582621 3.0691,-3.072708 c 0,0 -2.036045,-5.081092 -9.209705,-9.2073 l -3.070303,3.070303 3.582621,3.580215 0,0 v 0.0024 l -0.775693,0.776895 c -3.290383,-2.821359 -7.556096,-4.533897 -12.2307,-4.533897 -10.389481,0 -18.809061,8.418377 -18.809061,18.810263 0,10.387076 8.41958,18.8078588 18.809061,18.8078588 10.38948,0 18.80906,-8.4207828 18.80906,-18.8078588 0,-4.67701 -1.714943,-8.942722 -4.532695,-12.2307 l 0.776896,-0.778098 z m -0.864687,13.325089 c -0.0024,0.01443 -0.0036,0.03007 -0.0036,0.04931 h 0.269388 c -0.149126,3.342096 -1.446758,6.473733 -3.701681,8.942723 l -0.16957,-0.16957 c -0.03488,0.03969 -0.06614,0.08178 -0.101021,0.120262 l -2.566402,-2.5652 -0.804557,0.805759 2.72515,2.725149 c -2.473801,2.2549227 -5.599424,3.5537581 -8.946331,3.7040863 v -0.070955 c -0.0902,0.00722 -0.175583,0.016837 -0.268185,0.021647 v -3.8027013 h -1.025839 v 3.852009 c -0.511116,-0.024053 -1.011408,-0.081779 -1.509295,-0.157544 -2.874275,-0.3752191 -5.540495,-1.6163282 -7.705221,-3.593444 l 2.728757,-2.727555 -0.760059,-0.756451 -2.616913,2.616913 c -0.04931,-0.05893 -0.0902,-0.117857 -0.144315,-0.171976 l -0.122668,0.125073 c -2.322269,-2.541147 -3.557366,-5.719686 -3.702883,-8.94633 h 3.853211 v -1.247122 h -3.583823 c 0,-0.01443 0.0024,-0.03247 0.0024,-0.0469 h -0.270591 c 0.145518,-3.227846 1.380614,-6.405182 3.705289,-8.94633 l 0.165962,0.16957 c 0.03728,-0.03969 0.06614,-0.08178 0.102223,-0.122667 l 2.566403,2.572415 0.806962,-0.808164 -2.726352,-2.726352 c 2.470192,-2.257327 5.604234,-3.553758 8.945127,-3.70168 v 0.07095 c 0.08659,-0.0072 0.177989,-0.01924 0.266983,-0.02405 v 3.802701 h 1.02584 v -3.849603 c 0.50871,0.02165 1.01261,0.08178 1.509294,0.157543 2.875478,0.377625 5.539293,1.618734 7.701613,3.593445 l -2.722744,2.722744 0.758857,0.761262 2.612102,-2.616913 c 0.05171,0.05652 0.09381,0.117857 0.14191,0.174381 l 0.127478,-0.126276 c 2.254923,2.471395 3.552556,5.599424 3.701681,8.945127 h -3.854417 v 1.247123 h 3.589837 z"
+         style="fill:#ffffff"
+         inkscape:connector-curvature="0" />
+      <g
+         id="g4749-5"
+         style="fill:#ffffff" />
+      <g
+         id="g4751-2"
+         style="fill:#ffffff" />
+      <g
+         id="g4753-2"
+         style="fill:#ffffff" />
+      <g
+         id="g4755-50"
+         style="fill:#ffffff" />
+      <g
+         id="g4757-7"
+         style="fill:#ffffff" />
+      <g
+         id="g4759-3"
+         style="fill:#ffffff" />
+      <g
+         id="g4761-2"
+         style="fill:#ffffff" />
+      <g
+         id="g4763-8"
+         style="fill:#ffffff" />
+      <g
+         id="g4765-4"
+         style="fill:#ffffff" />
+      <g
+         id="g4767-7"
+         style="fill:#ffffff" />
+      <g
+         id="g4769-8"
+         style="fill:#ffffff" />
+      <g
+         id="g4771-05"
+         style="fill:#ffffff" />
+      <g
+         id="g4773-2"
+         style="fill:#ffffff" />
+      <g
+         id="g4775-0"
+         style="fill:#ffffff" />
+      <g
+         id="g4777-8"
+         style="fill:#ffffff" />
+    </g>
+    <flowRoot
+       transform="matrix(1.510813,0,0,1.510813,924.06536,216.23154)"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L"
+       id="flowRoot4497-2-5"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4499-5-0"><rect
+           style="fill:#ffffff"
+           y="408.07648"
+           x="-504.28571"
+           height="161.42857"
+           width="145.71428"
+           id="rect4501-5-7" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;font-family:Roboto;-inkscape-font-specification:Roboto Bold"
+         id="flowPara4503-1-1">0</flowPara></flowRoot>    <rect
+       style="fill:#333333;stroke:none;fill-opacity:1;opacity:1"
+       id="rect4999"
+       width="274.75388"
+       height="274.75388"
+       x="-402.76419"
+       y="538.75977"
+       inkscape:export-filename="/home/dheera/AndroidStudioProjects/WearCamera/wear/src/main/res/drawable/tip_0.png"
+       inkscape:export-xdpi="209.64"
+       inkscape:export-ydpi="209.64" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5001-6"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L"
+       transform="translate(0.5588421,70.414762)"><flowRegion
+         id="flowRegion5003-9"><rect
+           id="rect5005-7"
+           width="168.22017"
+           height="208.2272"
+           x="-338.75903"
+           y="587.15393"
+           style="text-align:center;text-anchor:middle;fill:#ffffff" /></flowRegion><flowPara
+         style="font-size:30px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#ffffff;font-family:Roboto;-inkscape-font-specification:Roboto Bold"
+         id="flowPara5064">Welcome</flowPara><flowPara
+         style="font-size:30px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;font-family:Roboto;-inkscape-font-specification:Roboto Light"
+         id="flowPara5068">Swipe left for options</flowPara></flowRoot>    <path
+       style="fill:#ffffff;stroke:none"
+       id="path5056"
+       d="m -192.62407,620.9246 c -6.66068,-2.30327 -13.66582,-3.36252 -20.58827,-4.55794 -15.02911,-2.08279 -30.23552,-2.56985 -45.3846,-3.05469 -18.03148,-0.45647 -36.06954,-0.53784 -54.10586,-0.58484 -6.32936,-0.0143 -12.65873,-0.006 -18.98808,0.008 -1.87688,0.004 -0.96676,0.002 -2.73034,0.005 -7.02495,0.0129 -7.04326,-9.92183 -0.0183,-9.93478 l 0,0 c 1.7608,-0.003 0.85175,-10e-4 2.72714,-0.005 6.34516,-0.0137 12.69033,-0.0219 19.0355,-0.008 18.13378,0.0473 36.26931,0.1295 54.39819,0.5899 15.60906,0.50092 31.27785,1.00977 46.75881,3.19481 7.41355,1.28306 14.90632,2.44824 22.03749,4.92254 6.66446,2.22149 3.5228,11.64646 -3.14166,9.42497 z"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#ffffff;stroke:none"
+       id="path5062"
+       d="m -318.77659,591.59678 c -3.61399,5.59471 -6.97433,11.34547 -10.95368,16.69184 -2.9971,3.99401 -7.00058,6.83102 -11.26453,9.29941 -0.12293,0.0891 -0.45906,0.38925 -0.3688,0.26719 0.5668,-0.76654 1.81255,-1.26175 1.80915,-2.21508 -0.0333,-9.32286 -0.42984,-4.14054 -2.85938,-6.15999 -0.10342,-0.086 0.26941,-0.0204 0.40336,-0.008 0.53159,0.0476 1.06013,0.12446 1.5902,0.18669 4.38751,0.47576 8.57424,1.93353 12.66013,3.53072 3.84558,1.55287 7.32173,3.00595 10.72305,5.43935 3.24122,2.51879 5.44225,5.81538 7.0294,9.54997 0.18483,0.57019 0.36966,1.14039 0.55448,1.71058 2.09461,6.70542 -7.38828,9.66764 -9.48289,2.96222 l 0,0 c -0.0858,-0.29618 -0.17162,-0.59237 -0.25742,-0.88856 -0.80103,-2.06884 -1.97223,-3.86271 -3.68905,-5.30113 -2.58286,-1.93115 -5.55246,-2.94869 -8.49694,-4.2204 -3.31175,-1.29659 -6.69258,-2.55099 -10.25327,-2.92223 -1.13751,-0.14993 -4.16424,-0.0324 -4.84698,-0.99992 -3.07131,-4.35242 -3.62851,-6.85167 0.50843,-9.52953 3.10311,-1.79555 6.09877,-3.72871 8.28628,-6.6525 3.84113,-5.10222 6.98811,-10.66697 10.48377,-16.00567 3.72322,-5.95716 12.14791,-0.69173 8.42469,5.26542 z"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

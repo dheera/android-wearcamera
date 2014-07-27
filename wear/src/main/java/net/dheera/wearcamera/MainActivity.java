@@ -1,17 +1,20 @@
 package net.dheera.wearcamera;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.wearable.view.GridViewPager;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -23,6 +26,7 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,20 +34,48 @@ public class MainActivity extends Activity {
 
     private static final String TAG = "WearCamera";
     private static final boolean D = true;
-
-
-
-    // Intent request codes
-    private static final int REQUEST_CONNECT_DEVICE = 1;
-    private static final int REQUEST_ENABLE_BT = 2;
+    private final MainActivity self = this;
 
     private GoogleApiClient mGoogleApiClient = null;
     private Node mPhoneNode = null;
-    private ImageView mImageView;
-    private ImageView mImageView2;
-    private TextView textViewCountDown;
 
+    private FrameLayout mOverlay;
+    private MenuAdapter mMenuAdapter;
+
+    GridViewPager mGridViewPager;
+    private ImageView mImageView_tip;
     private boolean mPreviewRunning = true;
+
+    private int currentTimer = 0;
+    private int frameNumber = 0;
+    private boolean timerIsRunning = false;
+
+    private MessageApi.MessageListener mMessageListener = new MessageApi.MessageListener() {
+        @Override
+        public void onMessageReceived (MessageEvent m){
+            Scanner s = new Scanner(m.getPath());
+            String command = s.next();
+            if (command.equals("stop")) {
+                mPreviewRunning = false;
+                moveTaskToBack(true);
+            } else if (command.equals("start")) {
+                mPreviewRunning = true;
+            } else if (command.equals("show")) {
+                byte[] data = m.getData();
+                Bitmap bmpSmall = BitmapFactory.decodeByteArray(data, 0, data.length);
+                setBitmap(bmpSmall);
+                if(mPhoneNode != null && s.hasNextLong() && (frameNumber++%8) == 0) {
+                    sendToPhone(String.format("received %d", s.nextLong()), null, null);
+                }
+            } else if(command.equals("result")) {
+                if(D) Log.d(TAG, "result");
+                onMessageResult(m.getData());
+            }
+
+        }
+    };
+
+    private Timer mTimer;
 
     int selfTimerSeconds;
 
@@ -55,7 +87,9 @@ public class MainActivity extends Activity {
                 if(result.getNodes().size()>0) {
                     mPhoneNode = result.getNodes().get(0);
                     if(D) Log.d(TAG, "Found wearable: name=" + mPhoneNode.getDisplayName() + ", id=" + mPhoneNode.getId());
-                    sendToPhone("/start", null, null);
+                    sendToPhone("start", null, null);
+                    doSwitch(currentCamera);
+                    doFlash(currentFlash);
                 } else {
                     mPhoneNode = null;
                 }
@@ -64,28 +98,11 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        mPreviewRunning = false;
-        if(mPhoneNode != null && mPreviewRunning) {
-            sendToPhone("/stop", null, new ResultCallback<MessageApi.SendMessageResult>() {
-                @Override
-                public void onResult(MessageApi.SendMessageResult result) {
-                    if (!result.getStatus().isSuccess()) {
-                        Log.e(TAG, "ERROR: failed to send Message: " + result.getStatus());
-                    }
-                    moveTaskToBack(true);
-                }
-            });
-        }
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         mPreviewRunning = false;
         if(mPhoneNode != null) {
-            sendToPhone("/stop", null, new ResultCallback<MessageApi.SendMessageResult>() {
+            sendToPhone("stop", null, new ResultCallback<MessageApi.SendMessageResult>() {
                 @Override
                 public void onResult(MessageApi.SendMessageResult result) {
                     if (!result.getStatus().isSuccess()) {
@@ -94,13 +111,15 @@ public class MainActivity extends Activity {
                     moveTaskToBack(true);
                 }
             });
+        } else {
+            findPhoneNode();
         }
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if(mPhoneNode != null) {
-            sendToPhone("/stop", null, new ResultCallback<MessageApi.SendMessageResult>() {
+            sendToPhone("stop", null, new ResultCallback<MessageApi.SendMessageResult>() {
                 @Override
                 public void onResult(MessageApi.SendMessageResult result) {
                     if (!result.getStatus().isSuccess()) {
@@ -110,6 +129,7 @@ public class MainActivity extends Activity {
                 }
             });
         }
+        Wearable.MessageApi.removeListener(mGoogleApiClient, mMessageListener);
     }
 
     @Override
@@ -117,19 +137,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
+
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                mImageView = (ImageView) stub.findViewById(R.id.imageView);
-                mImageView2 = (ImageView) stub.findViewById(R.id.imageView2);
-                textViewCountDown = (TextView) stub.findViewById(R.id.textViewCountDown);
-                mImageView.setOnLongClickListener(new View.OnLongClickListener() {
-                   @Override
-                    public boolean onLongClick(View v) {
-                       mImageView_onLongClick(v);
-                       return true;
-                    }
-                });
+                mMenuAdapter = new MenuAdapter(self, getFragmentManager(), mHandler);
+                mGridViewPager = (GridViewPager) findViewById(R.id.pager);
+                mGridViewPager.setAdapter(mMenuAdapter);
             }
         });
 
@@ -141,26 +155,7 @@ public class MainActivity extends Activity {
                     public void onConnected(Bundle connectionHint) {
                         Log.d(TAG, "onConnected: " + connectionHint);
                         findPhoneNode();
-                        Wearable.MessageApi.addListener(mGoogleApiClient, new MessageApi.MessageListener() {
-                            @Override
-                            public void onMessageReceived (MessageEvent m){
-                                if (m.getPath().equals("/stop")) {
-                                    mPreviewRunning = false;
-                                    moveTaskToBack(true);
-                                } else if (m.getPath().equals("/start")) {
-                                    mPreviewRunning = true;
-                                } else if (mPhoneNode!=null && m.getPath().equals("/show")) {
-                                    // sendToPhone("/received", null, null);
-                                    byte[] data = m.getData();
-                                    Bitmap bmpSmall = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                    setBitmap(bmpSmall);
-                                } else if(m.getPath().equals("/result")) {
-                                    if(D) Log.d(TAG, "result");
-                                    onMessageResult(m.getData());
-                                }
-
-                            }
-                        });
+                        Wearable.MessageApi.addListener(mGoogleApiClient, mMessageListener);
                     }
                     @Override
                     public void onConnectionSuspended(int cause) {
@@ -179,36 +174,79 @@ public class MainActivity extends Activity {
         mGoogleApiClient.connect();
 
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mPhoneNode != null) {
+            sendToPhone("stop", null, null);
+        } else {
+            findPhoneNode();
+        }
+        mPreviewRunning = false;
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume");
+        if(mPhoneNode != null) {
+            sendToPhone("start", null, null);
+            doSwitch(currentCamera);
+            doFlash(currentFlash);
+        } else {
+            findPhoneNode();
+        }
+        mPreviewRunning = true;
+        super.onResume();
+    }
+
     public void setBitmap(final Bitmap bmp) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(mImageView != null) {
-                        BitmapDrawable drawable = ((BitmapDrawable) mImageView.getDrawable());
+                    if (mMenuAdapter.mCameraFragment.cameraPreview != null) {
+                        BitmapDrawable drawable = ((BitmapDrawable) mMenuAdapter.mCameraFragment.cameraPreview.getDrawable());
                         if (drawable instanceof BitmapDrawable) {
                             drawable.getBitmap().recycle();
                         }
-                        mImageView.setImageBitmap(bmp);
+                        mMenuAdapter.mCameraFragment.cameraPreview.setImageBitmap(bmp);
                     }
                 }
             });
     }
 
-    public void mImageView_onClick(View view) {
-        if(mPhoneNode!=null) { sendToPhone("/snap", null, null); }
-        /*mImageView.animate().setDuration(500).translationX(mImageView.getWidth()).rotation(40).withEndAction(new Runnable() {
-            public void run() {
-                mImageView.setX(0);
-                mImageView.setRotation(0);
-            }
-        });*/
+    private static int currentFlash = 0;
+    private void doFlash(int arg0) {
+        currentFlash = arg0;
+        sendToPhone("flash " + String.valueOf(arg0), null, null);
     }
 
+    private static int currentCamera = 0;
 
-    public void mImageView_onLongClick(final View view) {
-        textViewCountDown.setVisibility(View.VISIBLE);
-        Timer mTimer = new Timer();
-        selfTimerSeconds = 6;
+    private void doSwitch(int arg0) {
+        currentCamera = arg0;
+        sendToPhone("switch " + String.valueOf(arg0), null, null);
+    }
+
+    private void doTimer(int arg0) {
+        currentTimer = arg0;
+    }
+
+    private void takePicture() {
+        if(mPhoneNode!=null) { sendToPhone("snap", null, null); }
+        mMenuAdapter.mCameraFragment.cameraResult.animate().setDuration(500).translationX(mMenuAdapter.mCameraFragment.cameraResult.getWidth()).rotation(40).withEndAction(new Runnable() {
+            public void run() {
+                mMenuAdapter.mCameraFragment.cameraResult.setX(0);
+                mMenuAdapter.mCameraFragment.cameraResult.setRotation(0);
+            }
+        });
+    }
+
+    private void startTimer(int seconds) {
+        mMenuAdapter.mCameraFragment.cameraTime.setVisibility(View.VISIBLE);
+        mTimer = new Timer();
+        timerIsRunning = true;
+        selfTimerSeconds = seconds + 1;
         mTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -216,21 +254,35 @@ public class MainActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            textViewCountDown.setText(String.valueOf(selfTimerSeconds));
+                            mMenuAdapter.mCameraFragment.cameraTime.setText(String.valueOf(selfTimerSeconds));
                         }
                     });
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            textViewCountDown.setVisibility(View.GONE);
-                            mImageView_onClick(view);
+                            mMenuAdapter.mCameraFragment.cameraTime.setVisibility(View.GONE);
+                            takePicture();
                         }
                     });
                     this.cancel();
+                    timerIsRunning = false;
                 }
             }
         }, 0, 1000);
+    }
+
+    private void cancelTimer() {
+        if(mTimer != null) {
+            mTimer.cancel();
+        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mMenuAdapter.mCameraFragment.cameraTime.setVisibility(View.GONE);
+            }
+        });
+        timerIsRunning = false;
     }
 
     private void sendToPhone(String path, byte[] data, final ResultCallback<MessageApi.SendMessageResult> callback) {
@@ -257,16 +309,53 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                mImageView2.setImageBitmap(bmp);
-                mImageView2.setX(0);
-                mImageView2.setRotation(0);
-                mImageView2.setVisibility(View.VISIBLE);
-                mImageView2.animate().setDuration(500).translationX(mImageView2.getWidth()).rotation(40).withEndAction(new Runnable() {
+                mMenuAdapter.mCameraFragment.cameraResult.setImageBitmap(bmp);
+                mMenuAdapter.mCameraFragment.cameraResult.setTranslationX(0);
+                mMenuAdapter.mCameraFragment.cameraResult.setRotation(0);
+                mMenuAdapter.mCameraFragment.cameraResult.setVisibility(View.VISIBLE);
+                mMenuAdapter.mCameraFragment.cameraResult.animate().setDuration(500).translationX(mMenuAdapter.mCameraFragment.cameraPreview.getWidth()).rotation(40).withEndAction(new Runnable() {
                     public void run() {
-                        mImageView2.setVisibility(View.GONE);
+                        mMenuAdapter.mCameraFragment.cameraResult.setVisibility(View.GONE);
                     }
                 });
             }
         });
     }
+
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MenuAdapter.MESSAGE_SNAP:
+                    Log.d(TAG, "MESSAGE_SNAP");
+                    mGridViewPager.scrollTo(0, 0);
+                    if(currentTimer == 0) {
+                        takePicture();
+                    } else if(currentTimer == 1) {
+                        if(timerIsRunning)
+                            cancelTimer();
+                        else
+                            startTimer(5);
+                    } else if(currentTimer == 2) {
+                        if(timerIsRunning)
+                            cancelTimer();
+                        else
+                            startTimer(10);
+                    }
+                    break;
+                case MenuAdapter.MESSAGE_SWITCH:
+                    Log.d(TAG, "MESSAGE_SWITCH");
+                    doSwitch(msg.arg1);
+                    break;
+                case MenuAdapter.MESSAGE_TIMER:
+                    Log.d(TAG, "MESSAGE_TIMER");
+                    doTimer(msg.arg1);
+                    break;
+                case MenuAdapter.MESSAGE_FLASH:
+                    Log.d(TAG, "MESSAGE_FLASH");
+                    doFlash(msg.arg1);
+                    break;
+            }
+        }
+    };
 }

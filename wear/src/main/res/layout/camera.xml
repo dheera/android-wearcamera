@@ -2,14 +2,13 @@
 <FrameLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
-<!--
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageView"
+        android:id="@+id/camera_preview"
         android:layout_gravity="center"
         android:scaleType="fitCenter"
         android:longClickable="true"
@@ -20,7 +19,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="2"
-        android:id="@+id/textViewCountDown"
+        android:id="@+id/camera_time"
         android:layout_gravity="center"
         android:visibility="gone"
         android:textSize="@android:dimen/notification_large_icon_height" />
@@ -28,7 +27,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageView2"
+        android:id="@+id/camera_result"
         android:layout_gravity="right|center_vertical"
         android:onClick="imageView_onClick"
         android:scaleType="fitCenter"
@@ -36,26 +35,11 @@
         android:clickable="true"
         android:visibility="gone" />
 
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tip"
         android:layout_gravity="center"
-        android:id="@+id/overlay"
-        android:visibility="gone">
-        -->
-
-        <android.support.wearable.view.GridViewPager
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:keepScreenOn="true" />
-
-
-    <!--
-</FrameLayout>
-
--->
-
+        android:visibility="gone" />
 
 </FrameLayout>

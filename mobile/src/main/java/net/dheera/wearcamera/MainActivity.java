@@ -10,6 +10,7 @@ import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -45,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -55,19 +57,51 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends Activity implements SurfaceHolder.Callback {
 
     private static final String TAG = "WearCamera";
-    private static final boolean D = false;
+    private static final boolean D = true;
     private int displayFrameLag = 0;
+    private long lastMessageTime = 0;
+    private long displayTimeLag = 0;
 
-    public SurfaceHolder mSurfaceHolder;
-    public SurfaceView mSurfaceView;
-    public ImageView mImageView;
-    public Camera mCamera;
+    private SurfaceHolder mSurfaceHolder;
+    private SurfaceView mSurfaceView;
+    private ImageView mImageView;
+    private Camera mCamera;
     public int mCameraOrientation;
     public boolean mPreviewRunning=false;
-    GoogleApiClient mGoogleApiClient;
+    private GoogleApiClient mGoogleApiClient;
     private Node mWearableNode = null;
-    private String mWearableAddress = null;
-    public boolean readyToProcessImage = true;
+    private boolean readyToProcessImage = true;
+
+    private static int currentCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
+    private static String currentFlashMode = Camera.Parameters.FLASH_MODE_OFF;
+
+    private MessageApi.MessageListener mMessageListener = new MessageApi.MessageListener() {
+        @Override
+        public void onMessageReceived (MessageEvent m){
+            if(D) Log.d(TAG, "onMessageReceived: " + m.getPath());
+            lastMessageTime = System.currentTimeMillis();
+            Scanner s = new Scanner(m.getPath());
+            String command = s.next();
+            if(command.equals("snap")) {
+                doSnap();
+            } else if(command.equals("switch")) {
+                int arg0 = 0;
+                if (s.hasNextInt()) arg0 = s.nextInt();
+                doSwitch(arg0);
+            } else if(command.equals("flash")) {
+                int arg0 = 0;
+                if (s.hasNextInt()) arg0 = s.nextInt();
+                doFlash(arg0);
+            } else if(command.equals("received")) {
+                long arg0 = 0;
+                if(s.hasNextLong()) arg0 = s.nextLong();
+                displayTimeLag = System.currentTimeMillis() - arg0;
+                if(D) Log.d(TAG, String.format("frame lag time: %d ms", displayTimeLag));
+            } else if(command.equals("stop")) {
+                moveTaskToBack(true);
+            }
+        }
+    };
 
     void findWearableNode() {
         PendingResult<NodeApi.GetConnectedNodesResult> nodes = Wearable.NodeApi.getConnectedNodes(mGoogleApiClient);
@@ -77,7 +111,6 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                 if(result.getNodes().size()>0) {
                     mWearableNode = result.getNodes().get(0);
                     if(D) Log.d(TAG, "Found wearable: name=" + mWearableNode.getDisplayName() + ", id=" + mWearableNode.getId());
-                    sendToWearable("/start", null, null);
                 } else {
                     mWearableNode = null;
                 }
@@ -86,7 +119,15 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
     }
 
     @Override
+    protected void onDestroy() {
+        if(D) Log.d(TAG, "onDestroy");
+        Wearable.MessageApi.removeListener(mGoogleApiClient, mMessageListener);
+        super.onDestroy();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(D) Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -99,40 +140,29 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
-                    @Override
-                    public void onConnected(Bundle connectionHint) {
-                        if(D) Log.d(TAG, "onConnected: " + connectionHint);
-                        findWearableNode();
-                        Wearable.MessageApi.addListener(mGoogleApiClient, new MessageApi.MessageListener() {
-                            @Override
-                            public void onMessageReceived (MessageEvent m){
-                                if(m.getPath().equals("/snap")) {
-                                    doSnap();
-                                } else if(m.getPath().equals("/received")) {
-                                    // if(displayFrameLag>1) displayFrameLag--;
-                                } else if(m.getPath().equals("/stop")) {
-                                    moveTaskToBack(true);
-                                }
-                            }
-                        });
-                    }
-                    @Override
-                    public void onConnectionSuspended(int cause) {
-                        if(D) Log.d(TAG, "onConnectionSuspended: " + cause);
-                    }
-                })
-                .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(ConnectionResult result) {
-                        if(D) Log.d(TAG, "onConnectionFailed: " + result);
-                    }
-                })
-                .addApi(Wearable.API)
-                .build();
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                        @Override
+                        public void onConnected(Bundle connectionHint) {
+                            if(D) Log.d(TAG, "onConnected: " + connectionHint);
+                            findWearableNode();
+                            Wearable.MessageApi.addListener(mGoogleApiClient, mMessageListener);
+                        }
+                        @Override
+                        public void onConnectionSuspended(int cause) {
+                            if(D) Log.d(TAG, "onConnectionSuspended: " + cause);
+                        }
+                    })
+                    .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
+                        @Override
+                        public void onConnectionFailed(ConnectionResult result) {
+                            if(D) Log.d(TAG, "onConnectionFailed: " + result);
+                        }
+                    })
+                    .addApi(Wearable.API)
+                    .build();
+            mGoogleApiClient.connect();
 
-        mGoogleApiClient.connect();
 
         // slowly subtract from the lag; in case the lag
         // is occurring due to transmission errors
@@ -141,18 +171,22 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
         // and nothing gets transmitted (therefore nothing
         // else pulls down displayFrameLag to allow transmission
         // again)
+
+        lastMessageTime = System.currentTimeMillis();
+
         Timer mTimer = new Timer();
         mTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if(displayFrameLag>1) { displayFrameLag--; }
+                if(displayTimeLag>1000) { displayTimeLag-=1000; }
             }
-        }, 0, 2000);
+        }, 0, 1000);
     }
 
     public void setCameraDisplayOrientation() {
             Camera.CameraInfo info = new Camera.CameraInfo();
-            mCamera.getCameraInfo(0, info);
+            mCamera.getCameraInfo(currentCamera, info);
             int rotation = this.getWindowManager().getDefaultDisplay().getRotation();
             int degrees = 0;
             switch (rotation) {
@@ -169,15 +203,70 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                     degrees = 270;
                     break;
             }
-            int result = (info.orientation - degrees + 360) % 360;
-            mCamera.setDisplayOrientation(result);
+            int resultA = 0, resultB = 0;
+            if(currentCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
+                resultA = (info.orientation - degrees + 360) % 360;
+                resultB = (info.orientation - degrees + 360) % 360;
+                mCamera.setDisplayOrientation(resultA);
+            } else {
+                resultA = (360 + 360 - info.orientation - degrees) % 360;
+                resultB = (info.orientation + degrees) % 360;
+                mCamera.setDisplayOrientation(resultA);
+            }
             Camera.Parameters params = mCamera.getParameters();
-            params.setRotation(result);
+            params.setRotation(resultB);
             mCamera.setParameters(params);
-            mCameraOrientation = result;
+            mCameraOrientation = resultB;
+    }
+
+
+    public void doFlash(int arg0) {
+        if(arg0 == 0)
+            currentFlashMode = Camera.Parameters.FLASH_MODE_OFF;
+        else if(arg0 == 1)
+            currentFlashMode = Camera.Parameters.FLASH_MODE_AUTO;
+        else if(arg0 == 2)
+            currentFlashMode = Camera.Parameters.FLASH_MODE_ON;
+
+        if((mCamera != null) && mPreviewRunning) {
+            Camera.Parameters p = mCamera.getParameters();
+            p.setFlashMode(currentFlashMode);
+            mCamera.setParameters(p);
+        }
+    }
+
+    public void doSwitch(int arg0) {
+        Log.d(TAG, String.format("doSwitch(%d)", arg0));
+
+        int oldCurrentCamera = currentCamera;
+
+        if(Camera.getNumberOfCameras()>=2) {
+            if(arg0 == 1) {
+                currentCamera = Camera.CameraInfo.CAMERA_FACING_FRONT;
+            } else {
+                currentCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
+            }
+        } else {
+            currentCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
+        }
+
+        if((oldCurrentCamera != currentCamera) && mPreviewRunning) {
+            surfaceDestroyed(mSurfaceHolder);
+            if (arg0 == 0) {
+                surfaceCreated(mSurfaceHolder);
+                surfaceChanged(mSurfaceHolder, 0, 0, 0);
+            } else {
+                surfaceCreated(mSurfaceHolder);
+                surfaceChanged(mSurfaceHolder, 0, 0, 0);
+            }
+        }
     }
 
      public void doSnap(){
+        if(mCamera == null || !mPreviewRunning) {
+            if(D) Log.d(TAG, "tried to snap when camera was inactive");
+            return;
+        }
         Camera.Parameters params = mCamera.getParameters();
         List<Camera.Size> sizes = params.getSupportedPictureSizes();
         Camera.Size size = sizes.get(0);
@@ -221,7 +310,7 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                     Bitmap bmpSmall = Bitmap.createScaledBitmap(bmp, smallWidth, smallHeight, false);
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bmpSmall.compress(Bitmap.CompressFormat.WEBP, 50, baos);
-                    sendToWearable("/result", baos.toByteArray(), null);
+                    sendToWearable("result", baos.toByteArray(), null);
                     mCamera.startPreview();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -258,9 +347,17 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
         }
     }
 
+
+    @Override
+    public synchronized void onPause() {
+        Log.d(TAG, "onPause");
+        super.onPause();
+    }
+
     @Override
     public synchronized void onResume() {
         Log.d(TAG, "onResume");
+        lastMessageTime = System.currentTimeMillis();
         super.onResume();
     }
 
@@ -278,6 +375,7 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
         if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
             p.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         }
+        p.setFlashMode(currentFlashMode);
         mCamera.setParameters(p);
         try {
             if (mCamera != null) {
@@ -285,18 +383,22 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                 setCameraDisplayOrientation();
                 mCamera.setPreviewCallback(new Camera.PreviewCallback() {
                     public void onPreviewFrame(byte[] data, Camera arg1) {
-                        if (mWearableNode != null && readyToProcessImage && mPreviewRunning && displayFrameLag<6) {
+                        if (mWearableNode != null && readyToProcessImage && mPreviewRunning && displayFrameLag<6 && displayTimeLag<2000
+                                && System.currentTimeMillis() - lastMessageTime < 4000) {
                             readyToProcessImage = false;
-                            if(D) Log.d(TAG, "Lag: " + String.valueOf(displayFrameLag));
                             Camera.Size previewSize = mCamera.getParameters().getPreviewSize();
 
                             int[] rgb = decodeYUV420SP(data, previewSize.width, previewSize.height);
                             Bitmap bmp = Bitmap.createBitmap(rgb, previewSize.width, previewSize.height, Bitmap.Config.ARGB_8888);
                             int smallWidth, smallHeight;
                             int dimension = 200;
-                            if(displayFrameLag > 3) {
-                                // stream is lagging, cut resolution and catch up
+                            // stream is lagging, cut resolution and catch up
+                            if(displayTimeLag > 1500) {
+                                dimension = 50;
+                            } else if(displayTimeLag > 500) {
                                 dimension = 100;
+                            } else {
+                                dimension = 200;
                             }
                             if(previewSize.width > previewSize.height) {
                                 smallWidth = dimension;
@@ -314,10 +416,10 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
                             bmpSmallRotated.compress(Bitmap.CompressFormat.WEBP, 30, baos);
                             displayFrameLag++;
-                            sendToWearable("/show", baos.toByteArray(), new ResultCallback<MessageApi.SendMessageResult>() {
+                            sendToWearable(String.format("show %d", System.currentTimeMillis()), baos.toByteArray(), new ResultCallback<MessageApi.SendMessageResult>() {
                                 @Override
                                 public void onResult(MessageApi.SendMessageResult result) {
-                                    displayFrameLag--;
+                                    if(displayFrameLag>0) displayFrameLag--;
                                 }
                             });
                             bmp.recycle();
@@ -333,14 +435,11 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
         }
         mCamera.startPreview();
         mPreviewRunning = true;
-        if(mWearableNode != null) {
-            sendToWearable("/start", null, null);
-        }
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        mCamera = Camera.open();
+        mCamera = Camera.open(currentCamera);
     }
 
     @Override
