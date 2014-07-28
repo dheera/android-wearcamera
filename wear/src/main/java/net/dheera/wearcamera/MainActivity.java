@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
 
     private boolean mPreviewRunning = true;
 
-    private int currentTimer = 0;
+    private static int currentTimer = 0;
     private int frameNumber = 0;
     private boolean timerIsRunning = false;
 
