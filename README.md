@@ -11,5 +11,6 @@ This project is released under the [GNU General Public License](http://www.gnu.o
 Check it out on the Play Store:  
 https://play.google.com/store/apps/details?id=net.dheera.wearcamera  
 
+![App image](http://static.dheera.net/images/projects/android-wearcamera/2.jpg)  
 ![App image](http://static.dheera.net/images/projects/android-wearcamera/0a.jpg)  
 ![App image](http://static.dheera.net/images/projects/android-wearcamera/1a.jpg)  
