@@ -9,8 +9,8 @@ android {
         applicationId "net.dheera.wearcamera"
         minSdkVersion 20
         targetSdkVersion 20
-        versionCode 7
-        versionName "1.6"
+        versionCode 8
+        versionName "1.7"
     }
     buildTypes {
         release {

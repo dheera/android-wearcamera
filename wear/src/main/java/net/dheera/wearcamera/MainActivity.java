@@ -1,6 +1,7 @@
 package net.dheera.wearcamera;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.support.wearable.view.GridViewPager;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
@@ -40,6 +42,8 @@ public class MainActivity extends Activity {
     private Node mPhoneNode = null;
 
     private MenuAdapter mMenuAdapter;
+
+    private Vibrator mVibrator;
 
     GridViewPager mGridViewPager;
 
@@ -148,6 +152,8 @@ public class MainActivity extends Activity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                     @Override
@@ -171,6 +177,7 @@ public class MainActivity extends Activity {
                 .build();
 
         mGoogleApiClient.connect();
+
 
     }
 
@@ -254,6 +261,7 @@ public class MainActivity extends Activity {
                         @Override
                         public void run() {
                             mMenuAdapter.mCameraFragment.cameraTime.setText(String.valueOf(selfTimerSeconds));
+                            mVibrator.vibrate(10);
                         }
                     });
                 } else {
@@ -262,6 +270,7 @@ public class MainActivity extends Activity {
                         public void run() {
                             mMenuAdapter.mCameraFragment.cameraTime.setVisibility(View.GONE);
                             takePicture();
+                            mVibrator.vibrate(200);
                         }
                     });
                     this.cancel();

@@ -6,27 +6,11 @@
     tools:context=".MainActivity"
     tools:deviceIds="wear_round">
 
-    <ImageView
+    <android.support.wearable.view.GridViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/tip"
-        android:layout_gravity="center"
-        android:onClick="imageView_onClick"
-        android:scaleType="fitCenter"
-        android:longClickable="true"
-        android:clickable="true"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
+        android:keepScreenOn="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="2"
-        android:id="@+id/textView"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:textSize="@android:dimen/notification_large_icon_height"
-        android:layout_below="@+id/tip"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>

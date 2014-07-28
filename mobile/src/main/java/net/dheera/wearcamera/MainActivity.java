@@ -278,6 +278,8 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
         mCamera.setParameters(params);
         Camera.PictureCallback jpegCallback = new Camera.PictureCallback() {
             public void onPictureTaken(byte[] data, Camera camera) {
+                MediaPlayer player = MediaPlayer.create(MainActivity.this, R.raw.camera_click);
+                player.start();
                 FileOutputStream outStream = null;
                 try {
                     String filename = String.format("/sdcard/DCIM/Camera/img_wear_%d.jpg", System.currentTimeMillis());
@@ -319,8 +321,6 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                 }
             }
         };
-        MediaPlayer player = MediaPlayer.create(MainActivity.this, R.raw.camera_click);
-        player.start();
         mCamera.takePicture(null, null, jpegCallback);
     }
 
@@ -349,13 +349,13 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 
 
     @Override
-    public synchronized void onPause() {
+    public void onPause() {
         Log.d(TAG, "onPause");
         super.onPause();
     }
 
     @Override
-    public synchronized void onResume() {
+    public void onResume() {
         Log.d(TAG, "onResume");
         lastMessageTime = System.currentTimeMillis();
         super.onResume();
@@ -451,10 +451,6 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
             mCamera.release();
         }
     }
-
-    Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
-        public void onPictureTaken(byte[] imageData, Camera c) { }
- 	};
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

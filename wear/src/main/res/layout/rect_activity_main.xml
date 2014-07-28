@@ -5,44 +5,6 @@
     android:layout_gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
-<!--
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/imageView"
-        android:layout_gravity="center"
-        android:scaleType="fitCenter"
-        android:longClickable="true"
-        android:clickable="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="2"
-        android:id="@+id/textViewCountDown"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:textSize="@android:dimen/notification_large_icon_height" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/imageView2"
-        android:layout_gravity="right|center_vertical"
-        android:onClick="imageView_onClick"
-        android:scaleType="fitCenter"
-        android:longClickable="true"
-        android:clickable="true"
-        android:visibility="gone" />
-
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center"
-        android:id="@+id/overlay"
-        android:visibility="gone">
-        -->
 
         <android.support.wearable.view.GridViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -50,12 +12,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:keepScreenOn="true" />
-
-
-    <!--
-</FrameLayout>
-
--->
-
 
 </FrameLayout>
