@@ -139,16 +139,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
 
-        stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
-            @Override
-            public void onLayoutInflated(WatchViewStub stub) {
-                mMenuAdapter = new MenuAdapter(self, getFragmentManager(), mHandler);
-                mGridViewPager = (GridViewPager) findViewById(R.id.pager);
-                mGridViewPager.setAdapter(mMenuAdapter);
-            }
-        });
+        mMenuAdapter = new MenuAdapter(this, getFragmentManager(), mHandler);
+        mGridViewPager = (GridViewPager) findViewById(R.id.pager);
+        mGridViewPager.setAdapter(mMenuAdapter);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 

@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="play-services-wearable-5.0.77">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/5.0.77/res" />
-      <root url="jar://$PROJECT_DIR$/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/5.0.77/classes.jar!/" />
+      <root url="file://$USER_HOME$/Dropbox/docs/code/android-wearcamera/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/5.0.77/res" />
+      <root url="jar://$USER_HOME$/Dropbox/docs/code/android-wearcamera/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/5.0.77/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

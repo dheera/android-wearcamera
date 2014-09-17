@@ -7,9 +7,9 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/mobile" />
-            <option value="$PROJECT_DIR$/wear" />
+            <option value="$USER_HOME$/Dropbox/docs/code/android-wearcamera" />
+            <option value="$USER_HOME$/Dropbox/docs/code/android-wearcamera/mobile" />
+            <option value="$USER_HOME$/Dropbox/docs/code/android-wearcamera/wear" />
           </set>
         </option>
       </GradleProjectSettings>
