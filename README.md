@@ -1,3 +1,6 @@
+**This repository is no longer being maintained.**
+I'm no longer focusing on creating apps for Android Wear.
+
 android-wearcamera
 ==================
 
