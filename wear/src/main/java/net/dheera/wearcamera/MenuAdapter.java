@@ -17,6 +17,7 @@ public class MenuAdapter extends FragmentGridPagerAdapter {
     public static final int MESSAGE_SWITCH = 2;
     public static final int MESSAGE_TIMER = 3;
     public static final int MESSAGE_FLASH = 4;
+    public static final int MESSAGE_SOUND = 5;
 
     private static int currentFlash = 0;
     int[] currentFlashText = { R.string.action_flash_0, R.string.action_flash_1, R.string.action_flash_2 };
@@ -29,6 +30,10 @@ public class MenuAdapter extends FragmentGridPagerAdapter {
     private static int currentTimer = 0;
     int[] currentTimerText = { R.string.action_timer_0, R.string.action_timer_1, R.string.action_timer_2 };
     int[] currentTimerIcon = { R.drawable.action_timer_0, R.drawable.action_timer_1, R.drawable.action_timer_2 };
+
+    private static int currentSound = 0;
+    int[] currentSoundText = { R.string.action_sound_0, R.string.action_sound_1 };
+    int[] currentSoundIcon = { R.drawable.action_sound_0, R.drawable.action_sound_1 };
 
     public MenuAdapter(Context ctx, FragmentManager fm, Handler h) {
         super(fm);
@@ -46,7 +51,7 @@ public class MenuAdapter extends FragmentGridPagerAdapter {
 
     @Override
     public int getColumnCount(int arg0) {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -106,6 +111,22 @@ public class MenuAdapter extends FragmentGridPagerAdapter {
             });
             return timerAction;
         }
+
+        if(colNum == 4) {
+            final ActionFragment soundAction = ActionFragment.newInstance(currentSoundIcon[currentSound], currentSoundText[currentSound]);
+            soundAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("blah", "clicked sound");
+                    currentSound = ( currentSound + 1 ) % currentSoundText.length;
+                    soundAction.setTextRes(currentSoundText[currentSound]);
+                    soundAction.setIconRes(currentSoundIcon[currentSound]);
+                    mHandler.obtainMessage(MESSAGE_SOUND, currentSound, -1).sendToTarget();
+                }
+            });
+            return soundAction;
+        }
+
         return null;
     }
 

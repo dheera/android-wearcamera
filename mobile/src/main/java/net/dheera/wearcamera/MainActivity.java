@@ -74,6 +74,7 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 
     private static int currentCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
     private static String currentFlashMode = Camera.Parameters.FLASH_MODE_OFF;
+    private static boolean currentSoundMode = true;
 
     private MessageApi.MessageListener mMessageListener = new MessageApi.MessageListener() {
         @Override
@@ -92,6 +93,10 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                 int arg0 = 0;
                 if (s.hasNextInt()) arg0 = s.nextInt();
                 doFlash(arg0);
+            } else if(command.equals("sound")) {
+                int arg0 = 0;
+                if (s.hasNextInt()) arg0 = s.nextInt();
+                doSound(arg0);
             } else if(command.equals("received")) {
                 long arg0 = 0;
                 if(s.hasNextLong()) arg0 = s.nextLong();
@@ -259,6 +264,14 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                 surfaceCreated(mSurfaceHolder);
                 surfaceChanged(mSurfaceHolder, 0, 0, 0);
             }
+        }
+    }
+
+    public void doSound(int arg0) {
+        currentSoundMode = (arg0 == 0);
+
+        if(mCamera != null) {
+            mCamera.enableShutterSound(currentSoundMode);
         }
     }
 

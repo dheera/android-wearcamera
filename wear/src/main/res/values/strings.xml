@@ -10,5 +10,7 @@
     <string name="action_timer_0">Self-timer off</string>
     <string name="action_timer_1">Self-timer 5s</string>
     <string name="action_timer_2">Self-timer 10s</string>
+    <string name="action_sound_0">Shutter sound on</string>
+    <string name="action_sound_1">Shutter sound off</string>
 
 </resources>

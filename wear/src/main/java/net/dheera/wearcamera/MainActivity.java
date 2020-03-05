@@ -193,6 +193,7 @@ public class MainActivity extends Activity {
             sendToPhone("start", null, null);
             doSwitch(currentCamera);
             doFlash(currentFlash);
+            doSound(currentSound);
         } else {
             findPhoneNode();
         }
@@ -230,6 +231,12 @@ public class MainActivity extends Activity {
 
     private void doTimer(int arg0) {
         currentTimer = arg0;
+    }
+
+    private static int currentSound = 0;
+    private void doSound(int arg0) {
+        currentSound = arg0;
+        sendToPhone("sound " + String.valueOf(arg0), null, null);
     }
 
     private void takePicture() {
@@ -356,6 +363,10 @@ public class MainActivity extends Activity {
                 case MenuAdapter.MESSAGE_FLASH:
                     Log.d(TAG, "MESSAGE_FLASH");
                     doFlash(msg.arg1);
+                    break;
+                case MenuAdapter.MESSAGE_SOUND:
+                    Log.d(TAG, "MESSAGE_SOUND");
+                    doSound(msg.arg1);
                     break;
             }
         }
